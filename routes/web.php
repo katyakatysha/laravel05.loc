@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,10 +25,27 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class,'index'])->name('home');
 
-Route::prefix('admin')->group(function (){
+Route::prefix('admin')->group(function(){
+
 
     Route::get('/',[App\Http\Controllers\Admin\MyController::class,'index']);
-    Route::resource('categories', CategoryController::class);
+    Route::resource('categories',CategoryController::class)->except(['show']);  //except удаление метода
+Route::resources([
+    'categories'=>CategoryController::class,
+    'products'=>ProductController::class
+]);
+
+//Route::get('/categories',[CategoryController::class, 'index'])
+//    ->name('categories.index');
+//Route::get('/categories/create',[CategoryController::class, 'create'])
+//    ->name('categories.create');
+//Route::post('/categories/create',[CategoryController::class, 'store'])
+//    ->name('categories.store');
+//Route::get('/categories/{category}/edit',[CategoryController::class, 'edit'])
+//    ->name('categories.edit');
+//Route::put('/categories/{category}/update',[CategoryController::class, 'update'])
+//    ->name('categories.update');
+//Route::delete('/categories/{category}/delete',[CategoryController::class, 'delete'])
+//    ->name('categories.delete');
 
 });
-

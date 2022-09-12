@@ -38,29 +38,30 @@
             <!-- Row -->
             <div class="row">
                 <!-- Column -->
-
                 <!-- Column -->
-                <div class="col-lg-12 col-xlg-12 col-md-12">
+                <!-- Column -->
+                <div class="col-lg-8 col-xlg-9 col-md-7">
                     <div class="card">
                         <div class="card-body">
-                            <form actinon="{{route('categories.store')}}" class="form-horizontal form-material mx-2" method="post">
+                            {{--                            @dump($errors->all())--}}
+                            {{--                            Для вывода ошибок для текущего поля--}}
+                            <form class="form-horizontal form-material mx-2" method="post" action="{{route('categories.store')}}">
                                 @csrf
                                 <div class="form-group">
-                                    <label class="col-md-12">Full Name</label>
+                                    <label class="col-md-12">Name</label>
                                     <div class="col-md-12">
-                                        <input type="text" name="name"
-                                               class="form-control form-control-line">
+                                        <input name="name" type="text"
+                                               class="form-control form-control-line {{$errors->has('name') ? 'is-invalid':''}}" value="{{old('name')}}">
                                     </div>
+                                    @if($errors->has('name'))
+                                        @foreach($errors->get('name') as $error)
+                                            {{$error}}
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-12">Select Country</label>
                                     <div class="col-sm-12">
-                                        <button type="submit" class ="btn btn-success">Save</button>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <button class="btn btn-success text-white">Update Profile</button>
+                                        <button type="submit" class="btn btn-success text-white">Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -73,6 +74,7 @@
             <!-- ============================================================== -->
             <!-- End PAge Content -->
             <!-- ============================================================== -->
+
             <!-- ============================================================== -->
             <!-- Right sidebar -->
             <!-- ============================================================== -->
