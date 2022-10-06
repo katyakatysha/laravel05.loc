@@ -39,6 +39,7 @@
                                 <tr class="bg-light">
                                     <th class="border-top-0">id</th>
                                     <th class="border-top-0">Name</th>
+                                    <th class="border-top-0">Image</th>
                                     <th class="border-top-0">Actions</th>
                                     {{--                                <th class="border-top-0">Technology</th>--}}
                                     {{--                                <th class="border-top-0">Tickets</th>--}}
@@ -51,6 +52,7 @@
                                 <tr>
                                     <td>{{$product->id}} </td>
                                     <td>{{$product->name}} </td>
+                                    <td><img src="{{\Illuminate\Support\Facades\Storage::url($product->image)}}" alt="" style="width: 100px"> </td>
                                     <td><a href="{{ route('products.edit', compact('product')) }}" class=" btn btn-info">EDIT</a>
                                         <form action="{{ route('products.destroy', compact('product')) }}" method="post">
                                             @method('DELETE')

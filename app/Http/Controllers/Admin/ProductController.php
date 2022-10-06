@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -15,16 +18,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-//                $count = Product::all()->count();
-//        $perPage = 15;
-//        $pages = ceil($count/$perPage);
-//        $products= Product::all();
+        // $count = Product::all()->count();
+        // $prePage = 15;
+        // $pages = ceil($count/$prePage); - первый способ
 
-
-        return view('admin.products.index',
-        ['products'=>Product::paginate(5)
-        ]);
-
+        $products = Product::paginate(10);
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -34,7 +33,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('admin.products.create', compact('categories'));
     }
 
     /**
@@ -43,9 +43,18 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateProductRequest $request)
     {
-        //
+        $data = $request->all();
+        if ($request->hasFile('image')){
+//            $filename = $request->file('image')->getClientOriginalName();
+//            $request->file('image')->storeAs('public', $filename);
+//            $data['image'] = '/storage/'.$filename;
+            $file = $request->file('image');
+            $data['image']=Storage::putFileAs('images', $file, 'my_name.png');
+
+        }
+        Product::create($data);
     }
 
     /**

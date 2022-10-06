@@ -17,13 +17,12 @@ class CategoryRequest extends FormRequest
         return true;
     }
 
-    public function prepareForValidation()
+    protected function prepareForValidation()
     {
         $this->merge([
-            'slug'=>'222',
+            'slug' => '222'
         ]);
     }
-
 
     /**
      * Get the validation rules that apply to the request.
@@ -33,26 +32,24 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:4|max:255',
-            'slug' => [ new SeriaRule()],
+            'name' => 'required|min:3|max:20',
+            'slug' => ['required', new SeriaRule()]
         ];
     }
 
-    public function messages(){
-        return[
-            'name.min'=> 'Поле :attribute не должно быть короче :min-x символов',
-            'name.required'=>'Обязательное поле',
-
+    public function messages()
+    {
+        return [
+            'name.min' => 'Поле :attribute не должно быть меньше :min символов',
+            'name.required' => 'Обязательное поле',
+            'name.max' => 'Имя категории не должно быть больше :max символов'
         ];
     }
 
     public function attributes()
     {
         return [
-            'name' => 'Название категории'
+            'name' => 'название категории'
         ];
     }
-
-
-
 }

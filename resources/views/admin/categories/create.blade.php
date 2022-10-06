@@ -1,30 +1,11 @@
 @extends('layouts.admin')
+
 @section('content')
     <div class="page-wrapper">
         <!-- ============================================================== -->
         <!-- Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
-        <div class="page-breadcrumb">
-            <div class="row align-items-center">
-                <div class="col-5">
-                    <h4 class="page-title">Profile Page</h4>
-                    <div class="d-flex align-items-center">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Library</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-7">
-                    <div class="text-end upgrade-btn">
-                        <a href="https://www.wrappixel.com/templates/xtremeadmin/" class="btn btn-danger text-white"
-                           target="_blank">Upgrade to Pro</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+ @include ('partials.header', ['name'=>'Categories'])
         <!-- ============================================================== -->
         <!-- End Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
@@ -40,21 +21,18 @@
                 <!-- Column -->
                 <!-- Column -->
                 <!-- Column -->
-                <div class="col-lg-8 col-xlg-9 col-md-7">
+                <div class="col-lg-12 col-xlg-12 col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            {{--                            @dump($errors->all())--}}
-                            {{--                            Для вывода ошибок для текущего поля--}}
-                            <form class="form-horizontal form-material mx-2" method="post" action="{{route('categories.store')}}">
+                            <form action="{{ route('categories.store') }}" method="POST" class="form-horizontal form-material mx-2">
                                 @csrf
                                 <div class="form-group">
                                     <label class="col-md-12">Name</label>
                                     <div class="col-md-12">
-                                        <input name="name" type="text"
-                                               class="form-control form-control-line {{$errors->has('name') ? 'is-invalid':''}}" value="{{old('name')}}">
+                                        <input name="name" type="text" class="form-control form-control-line {{$errors->has('name') ? 'is-invalid':''}}" value="{{old('name')}}">
                                     </div>
                                     @if($errors->has('name'))
-                                        @foreach($errors->get('name') as $error)
+                                        @foreach ($errors->get('name') as $error)
                                             {{$error}}
                                         @endforeach
                                     @endif
@@ -74,7 +52,6 @@
             <!-- ============================================================== -->
             <!-- End PAge Content -->
             <!-- ============================================================== -->
-
             <!-- ============================================================== -->
             <!-- Right sidebar -->
             <!-- ============================================================== -->

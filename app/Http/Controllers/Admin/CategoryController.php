@@ -16,8 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('admin.categories.index', compact('categories'));
+       
     }
 
     /**
@@ -27,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        
     }
 
     /**
@@ -38,6 +37,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
+<<<<<<< HEAD
 //        $validated = $request->validate([
 //            'name'=>'required|min:3|max:20'
 //        ]);
@@ -55,8 +55,12 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         //
+=======
+       
+>>>>>>> 130bb0a756e62ef3fd3e54c84d6f8c6207172b80
     }
 
+ 
     /**
      * Show the form for editing the specified resource.
      *
@@ -65,8 +69,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('admin.categories.edit',
-            compact('category'));
+        
     }
 
     /**
@@ -78,9 +81,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $category->fill($request->all());
-        $category->save();
-        return redirect(route('categories.index'));
+        
     }
 
     /**
@@ -91,7 +92,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
-        return redirect(route('categories.index'));
+       
     }
 }
