@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class ArticleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,21 +24,16 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:15',
+//            'image' => 'required|size:512|mimes:jpg,jpeg,png',
+            'content' => 'required|min:50|max:5000',
         ];
     }
 
-    public function messages(){
-        return[
-            'name.min' => 'Поле :attribute не должно быть короче :min-x символов',
-            'name.required' => 'Обязательное поле',
-        ];
-    }
-
-    public function attributes()
+    public function messages()
     {
+
         return [
-            'name' => 'название категории',
+            'content.min' => 'Поле :attribute должно быть больше :min символов'
         ];
     }
 }

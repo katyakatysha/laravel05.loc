@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -16,7 +17,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::paginate();
+        $articles = Article::paginate(10);
         return view('admin.articles.index', compact('articles'));
     }
 
@@ -38,6 +39,10 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
+//        if ($request->hasFile('image')){
+//            $path = $request->image->store('articles');
+//            $request->image = $request->image->path();
+//        }
         Article::create($request->all());
         return redirect(route('articles.index'));
     }
@@ -50,7 +55,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+
     }
 
     /**
@@ -62,6 +67,7 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         return view('admin.articles.edit', compact('article'));
+        return redirect(route('articles.index'));
     }
 
     /**
@@ -73,6 +79,11 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, Article $article)
     {
+
+        if ($request->hasFile('image')){
+            $path = $request->image->store('articles');
+            $request->image = $request->image->path();
+        }
         $article->fill($request->all());
         $article->save();
         return redirect(route('articles.index'));

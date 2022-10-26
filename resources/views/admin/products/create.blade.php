@@ -1,110 +1,131 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="page-wrapper">
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    @include('partials.header', ['name' => 'Products'])
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
         <!-- ============================================================== -->
-        <!-- Bread crumb and right sidebar toggle -->
+        <!-- Start Page Content -->
         <!-- ============================================================== -->
-    @include ('partials.header', ['name'=>'Products'])
-        <!-- ============================================================== -->
-        <!-- End Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Container fluid  -->
-        <!-- ============================================================== -->
-        <div class="container-fluid">
-            <!-- ============================================================== -->
-            <!-- Start Page Content -->
-            <!-- ============================================================== -->
-            <!-- Row -->
-            <div class="row">
-                <!-- Column -->
-                <!-- Column -->
-                <!-- Column -->
-                <div class="col-lg-12 col-xlg-12 col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <form enctype="multipart/form-data" action="{{ route('products.store') }}" method="POST" class="form-horizontal form-material mx-2">
-                                @csrf
-                                <div class="form-group">
-                                    <label class="col-md-12">Name</label>
-                                    <div class="col-md-12">
-                                        <input name="name" type="text" class="form-control form-control-line {{$errors->has('name') ? 'is-invalid':''}}" value="{{old('name')}}">
-                                    </div>
-                                    @if($errors->has('name'))
-                                        @foreach ($errors->get('name') as $error)
-                                            {{$error}}
-                                        @endforeach
-                                    @endif
+        <!-- Row -->
+
+            <!-- Column -->
+            <!-- Column -->
+            <div class="col-lg-12 col-xlg-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <form action="{{ route('products.store') }}" class="form-horizontal form-material mx-2" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @dump($errors->all())
+                            <div class="form-group">
+                                <label class="col-md-12">Product's Name</label>
+                                <div class="col-md-12">
+                                    <input name="name" type="text" class="form-control form-control-line" value={{ old('name') }}>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Description</label>
-                                    <div class="col-md-12">
-                                        <input name="description" type="text" class="form-control form-control-line {{$errors->has('description') ? 'is-invalid':''}}" value="{{old('description')}}">
-                                    </div>
+                                @if($errors->has('name'))
+                                    @foreach($errors->get('name') as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Product's Description</label>
+                                <div class="col-md-12">
+                                    <input name="description" type="text" class="form-control form-control-line" value = {{ old('description') }}>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Category_id</label>
-                                    <select name="category_id" class="form-control">
-                                        <option disabled>Выберите категорию</option>
-                                        @foreach ($categories as $category)
-                                            <option value="{{$category->id}}">{{$category->name}}</option>
-                                        @endforeach
-                                    </select>
+                                @if($errors->has('description'))
+                                    @foreach($errors->get('description') as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Product's Category</label>
+                                <select name="category_id" class="form-control">
+                                    <option disabled>Выберите категорию</option>
+                                    @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Product's Price</label>
+                                <div class="col-md-12">
+                                    <input name="price" type="text" class="form-control form-control-line" value = {{ old('price') }}>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Price</label>
-                                    <div class="col-md-12">
-                                        <input name="price" type="text" class="form-control form-control-line {{$errors->has('price') ? 'is-invalid':''}}" value="{{old('price')}}">
-                                    </div>
+                                @if($errors->has('price'))
+                                    @foreach($errors->get('price') as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Product's Image</label>
+                                <div class="col-md-12">
+                                    <input name="image" type="file" class="form-control form-control-line" value = {{ old('image') }}>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Image</label>
-                                    <div class="col-md-12">
-                                        <input name="image" type="file" class="form-control form-control-line {{$errors->has('image') ? 'is-invalid':''}}" value="{{old('image')}}">
-                                    </div>
+                                @if($errors->has('image'))
+                                    @foreach($errors->get('image') as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Active</label>
+                                <div class="col-md-12">
+                                    <input name="active" type='checkbox' value="1">
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Active</label>
-                                    <div class="col-md-12">
-                                        <input name="active" type="checkbox" value="{{old('1')}}">
-                                    </div>
+                                @if($errors->has('active'))
+                                    @foreach($errors->get('active') as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-success text-white">SAVE</button>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <button type="submit" class="btn btn-success text-white">Save</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <!-- Column -->
             </div>
-            <!-- Row -->
-            <!-- ============================================================== -->
-            <!-- End PAge Content -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Right sidebar -->
-            <!-- ============================================================== -->
-            <!-- .right-sidebar -->
-            <!-- ============================================================== -->
-            <!-- End Right sidebar -->
-            <!-- ============================================================== -->
+            <!-- Column -->
         </div>
+        <!-- Row -->
         <!-- ============================================================== -->
-        <!-- End Container fluid  -->
+        <!-- End PAge Content -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
-        <!-- footer -->
+        <!-- Right sidebar -->
         <!-- ============================================================== -->
-        <footer class="footer text-center">
-            All Rights Reserved by Xtreme Admin. Designed and Developed by <a
-                href="https://www.wrappixel.com">WrapPixel</a>.
-        </footer>
+        <!-- .right-sidebar -->
         <!-- ============================================================== -->
-        <!-- End footer -->
+        <!-- End Right sidebar -->
         <!-- ============================================================== -->
     </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- footer -->
+    <!-- ============================================================== -->
+    <footer class="footer text-center">
+        All Rights Reserved by Xtreme Admin. Designed and Developed by <a
+            href="https://www.wrappixel.com">WrapPixel</a>.
+    </footer>
+    <!-- ============================================================== -->
+    <!-- End footer -->
+    <!-- ============================================================== -->
+</div>
 @endsection

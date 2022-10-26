@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
@@ -44,15 +43,42 @@
             <div class="col-lg-12 col-xlg-12 col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('categories.update', ['category' => $category]) }}" class="form-horizontal form-material mx-2" method="POST">
-                            @method('PUT')
+
+                        <form action="{{ route('articles.store') }}" class="form-horizontal form-material mx-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <label class="col-md-12">Edit Full Name</label>
+                                <label class="col-md-12">Name</label>
                                 <div class="col-md-12">
-                                    <input name="name" type="text" class="form-control form-control-line" value="{{ $category->name }}">
+                                    <input name="name" type="text" class="form-control form-control-line {{$errors->has('name') ? 'is-invalid':''}}" value={{ old('name') }}>
                                 </div>
+                                @if($errors->has('name'))
+                                    @foreach($errors->get('name') as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                @endif
                             </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Content</label>
+                                <div class="col-md-12">
+                                    <input name="content" type="text" class="form-control form-control-line {{$errors->has('content') ? 'is-invalid':''}}" value={{ old('content') }}>
+                                </div>
+                                @if($errors->has('content'))
+                                    @foreach($errors->get('content') as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                @endif
+                            </div>
+{{--                            <div class="form-group">--}}
+{{--                                <label class="col-md-12">Content</label>--}}
+{{--                                <div class="col-md-12">--}}
+{{--                                    <input name="image" type="file" class="form-control form-control-line>--}}
+{{--                                </div>--}}
+{{--                                @if($errors->has('image'))--}}
+{{--                                    @foreach($errors->get('image') as $error)--}}
+{{--                                        {{ $error }}--}}
+{{--                                    @endforeach--}}
+{{--                                @endif--}}
+{{--                            </div>--}}
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     <button type="submit" class="btn btn-success text-white">SAVE</button>

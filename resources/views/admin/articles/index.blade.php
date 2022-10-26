@@ -41,23 +41,25 @@
             <div class="col-12">
                 <div class="card">
                     <div class="table-responsive">
-                        <a href="{{ route('categories.create') }}" class="btn btn-success">Create new</a>
+                        <a href="{{ route('articles.create') }}" class="btn btn-success">Create new</a>
                         <table class="table v-middle">
                             <thead>
                             <tr class="bg-light">
                                 <th class="border-top-0">ID</th>
                                 <th class="border-top-0">Name</th>
+                                <th class="border-top-0">Active</th>
                                 <th class="border-top-0">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($categories as $category)
+                            @foreach($articles as $article)
                             <tr>
-                                <td>{{ $category->id }}</td>
-                                <td>{{ $category->name }}</td>
+                                <td>{{ $article->id }}</td>
+                                <td>{{ $article->name }}</td>
+                                <td>{{ $article->active }}</td>
                                 <td>
-                                    <a href="{{ route('categories.edit', compact('category')) }}">EDIT</a>
-                                        <form action="{{ route('categories.destroy', compact('category')) }}" method="post">
+                                    <a href="{{ route('articles.edit', compact('article')) }}">EDIT</a>
+                                        <form action="{{ route('articles.destroy', compact('article')) }}" method="post">
                                             @method('DELETE')
                                             @csrf
                                             <button type="submit">DELETE</button>

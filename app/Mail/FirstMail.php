@@ -28,15 +28,10 @@ class FirstMail extends Mailable
      */
     public function build()
     {
-        return $this->from('test@ya.ru', 'Volodiya')
-            ->to('test2@ya.ru')
-            ->cc(['test3@ya.ru'])
-            ->bcc(['test4@ya.ru'])
-            ->view('emails.first')
-            ->with([
-                'message2'=>'fkjdk',
-                'mailMessage'=>$this->mailMessage
+        return $this->from('ololo@mail.ru', 'James')->to('ololo2@mail.ru')->cc(['ololo3@mail.ru'])
+            ->view('emails.first')->with([
+                'message2' => 'rmvkrmv',
+                'mailMessage' => $this->mailMessage,
             ]);
     }
 }
-

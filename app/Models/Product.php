@@ -10,18 +10,29 @@ use Illuminate\Support\Str;
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'description', 'price', 'image', 'active', 'category_id'];
-    public function getImageAttribute():string
+    protected $fillable = ['name', 'description', 'image', 'price', 'active', 'category_id'];
+
+    public function getImageAttribute(): string
     {
-       $image =  $this->attributes['image'];
-        if ($image){
-            if (Str::startsWith($image, 'http')){
+        $image = $this->attributes['image'];
+        if($image){
+            if(Str::startsWith($image, 'http')){
                 return $image;
             }else{
-                Storage::url($image);
+                if(Storage::exists($image)) {
+                    return Storage::url($image);
+                }
+                return "https://klike.net/uploads/posts/2019-05/1556708032_1.jpg";
             }
         }
-        return'https://img2.akspic.ru/previews/9/0/9/8/6/168909/168909-ballonchik-graffiti-ulichnoe_iskusstvo-svet-purpur-500x.jpg';
+        return "https://klike.net/uploads/posts/2019-05/1556708032_1.jpg";
     }
 
+    public function setImageAttribute($value){
+        $this->attributes['image'] = Str::lower($value);
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 }

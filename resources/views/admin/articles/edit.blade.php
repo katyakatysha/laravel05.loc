@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
@@ -8,7 +9,7 @@
     <div class="page-breadcrumb">
         <div class="row align-items-center">
             <div class="col-5">
-                <h4 class="page-title">Dashboard</h4>
+                <h4 class="page-title">Profile Page</h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
@@ -16,6 +17,12 @@
                             <li class="breadcrumb-item active" aria-current="page">Library</li>
                         </ol>
                     </nav>
+                </div>
+            </div>
+            <div class="col-7">
+                <div class="text-end upgrade-btn">
+                    <a href="https://www.wrappixel.com/templates/xtremeadmin/" class="btn btn-danger text-white"
+                       target="_blank">Upgrade to Pro</a>
                 </div>
             </div>
         </div>
@@ -28,58 +35,58 @@
     <!-- ============================================================== -->
     <div class="container-fluid">
         <!-- ============================================================== -->
-        <!-- Sales chart -->
+        <!-- Start Page Content -->
         <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Sales chart -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Table -->
-        <!-- ============================================================== -->
-        <div class="row">
-            <!-- column -->
-            <div class="col-12">
+        <!-- Row -->
+
+            <!-- Column -->
+            <!-- Column -->
+            <div class="col-lg-12 col-xlg-12 col-md-12">
                 <div class="card">
-                    <div class="table-responsive">
-                        <a href="{{ route('categories.create') }}" class="btn btn-success">Create new</a>
-                        <table class="table v-middle">
-                            <thead>
-                            <tr class="bg-light">
-                                <th class="border-top-0">ID</th>
-                                <th class="border-top-0">Name</th>
-                                <th class="border-top-0">Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($categories as $category)
-                            <tr>
-                                <td>{{ $category->id }}</td>
-                                <td>{{ $category->name }}</td>
-                                <td>
-                                    <a href="{{ route('categories.edit', compact('category')) }}">EDIT</a>
-                                        <form action="{{ route('categories.destroy', compact('category')) }}" method="post">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit">DELETE</button>
-                                        </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                    <div class="card-body">
+                        <form action="{{ route('articles.update', ['article' => $article]) }}" class="form-horizontal form-material mx-2" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <div class="form-group">
+                                <label class="col-md-12">Edit Name</label>
+                                <div class="col-md-12">
+                                    <input name="name" type="text" class="form-control form-control-line" value="{{ $article->name }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Edit Text</label>
+                                <div class="col-md-12">
+                                    <input name="content" type="text" class="form-control form-control-line" value="{{ $article->content }}">
+                                </div>
+                            </div>
+                            @dump($errors->all())
+{{--                            <div class="form-group">--}}
+{{--                                <label class="col-md-12">Edit Text</label>--}}
+{{--                                <div class="col-md-12">--}}
+{{--                                    <input name="image" type="file" class="form-control form-control-line">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-success text-white">SAVE</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+            <!-- Column -->
         </div>
+        <!-- Row -->
         <!-- ============================================================== -->
-        <!-- Table -->
+        <!-- End PAge Content -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
-        <!-- Recent comment and chats -->
+        <!-- Right sidebar -->
         <!-- ============================================================== -->
-
+        <!-- .right-sidebar -->
         <!-- ============================================================== -->
-        <!-- Recent comment and chats -->
+        <!-- End Right sidebar -->
         <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->

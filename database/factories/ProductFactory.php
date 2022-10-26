@@ -17,15 +17,14 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-        $ids=Category::all()->pluck('id')->toArray();
-
+        $ids = Category::all()->pluck('id')->toArray();
         return [
-           'name'=>fake()->word(),
-            'description'=>fake()->text(255),
-            'price'=>fake()->randomDigit(),
-            'image'=>fake()->imageUrl(500, 500),
-            'active'=>fake()->boolean(20),
-            'category_id'=>fake()->randomElement($ids)
+            'name' => fake()->word(),
+            'description' => fake()->text(255),
+            'price' => fake()->randomDigit(),
+            'image' => fake()->imageUrl(500, 500),
+            'active' => fake()->boolean(20),
+            'category_id' => fake()->randomElement($ids),
         ];
     }
 }

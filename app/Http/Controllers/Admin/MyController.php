@@ -7,12 +7,7 @@ use Illuminate\Http\Request;
 
 class MyController extends Controller
 {
-    public function index()
-    {
-        $arr = [
-            'h1'=>'Hello Igor',
-            'h2'=>'Hello Kate'
-        ];
+    public function index(){
         return view('admin.dashboard');
     }
 }

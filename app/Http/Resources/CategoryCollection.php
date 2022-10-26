@@ -4,9 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class UserCollection extends ResourceCollection
+class CategoryCollection extends ResourceCollection
 {
-    public $collects = UserResource::class;
     /**
      * Transform the resource collection into an array.
      *
@@ -17,9 +16,6 @@ class UserCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection,
-            'links' => [
-                'self' => $this->links(),
-            ],
         ];
     }
 }

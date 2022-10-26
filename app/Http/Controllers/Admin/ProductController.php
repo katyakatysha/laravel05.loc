@@ -18,11 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // $count = Product::all()->count();
-        // $prePage = 15;
-        // $pages = ceil($count/$prePage); - первый способ
-
-        $products = Product::paginate(10);
+        $products = Product::paginate();
         return view('admin.products.index', compact('products'));
     }
 
@@ -46,15 +42,13 @@ class ProductController extends Controller
     public function store(CreateProductRequest $request)
     {
         $data = $request->all();
+        dd($data);
         if ($request->hasFile('image')){
-//            $filename = $request->file('image')->getClientOriginalName();
-//            $request->file('image')->storeAs('public', $filename);
-//            $data['image'] = '/storage/'.$filename;
             $file = $request->file('image');
-            $data['image']=Storage::putFileAs('images', $file, 'my_name.png');
-
+            $data['image'] = Storage::put('images', $file);
         }
         Product::create($data);
+
     }
 
     /**
@@ -86,7 +80,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(CreateProductRequest $request, Product $product)
     {
         //
     }
